@@ -140,6 +140,9 @@ body {
 .datatable__tasks-container:empty::after {
   content: 'Currently, there are no tasks available.'; }
 
+.datatable__found-tasks-container:empty::after {
+  content: 'No tasks found.'; }
+
 .template {
   display: none;
 }

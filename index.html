@@ -12,7 +12,7 @@
 
 <main class="crud container">
   <section class="datatable">
-    <h2>Search task</h2>
+    <h2>Search tasks</h2>
     <form
         class="datatable__row datatable__row--add"
         method="GET"
@@ -23,7 +23,7 @@
         <label class="datatable__input-label">
           Task name beginnig
         </label>
-        <input type="text" name="beginLetters" placeholder="Type in first three letters of the task" data-task-begin-letters-input required minlength="3">
+        <input type="text" name="beginLetters" placeholder="Type in first three letters of the task" data-task-begin-letters-input required minlength="1">
       </fieldset>
       <fieldset class="datatable__row-section datatable__row-section--button-section">
         <button type="submit" data-find-task-button class="datatable__button">Find task</button>
@@ -32,7 +32,7 @@
   </section>
   <section class="datatable">
     <h2>Found tasks</h2>
-    <div class="datatable__tasks-container" data-found-tasks-container></div>
+    <div class="datatable__found-tasks-container" data-found-tasks-container></div>
   </section>
   <section class="datatable">
     <h2>Add a new task</h2>

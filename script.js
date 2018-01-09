@@ -122,11 +122,11 @@ $(document).ready(function() {
     var requestUrl = apiRoot + 'findTasks';
     
     $.ajax({
-      url: requestUrl + '/?' + $.param({
-        beginLetters: beginLetters
+      url: requestUrl + '?' + $.param({
+          beginLetters: beginLetters
       }),
       method: 'GET',
-      complete: handleDatatableRenderForFoundTasks
+      success: handleDatatableRenderForFoundTasks
     });
   }
 
