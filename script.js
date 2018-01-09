@@ -1,8 +1,9 @@
 $(document).ready(function() {
 
-  var apiRoot = 'https://afternoon-wave-41255.herokuapp.com/v1/task/';
+  var apiRoot = 'http://localhost:8080/v1/task/';
   var datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   var tasksContainer = $('[data-tasks-container]');
+  var foundTasksContainer = $('[data-found-tasks-container]');
 
   // init
   getAllTasks();
@@ -24,6 +25,13 @@ $(document).ready(function() {
     tasksContainer.empty();
     data.forEach(function(task) {
       createElement(task).appendTo(tasksContainer);
+    });
+  }
+
+  function handleDatatableRenderForFoundTasks(data) {
+    foundTasksContainer.empty();
+    data.forEach(function(task) {
+      createElement(task).appendTo(foundTasksContainer);
     });
   }
 
@@ -105,6 +113,23 @@ $(document).ready(function() {
     });
   }
 
+  function handleFindTaskRequest(event) {
+    event.preventDefault();
+    var beginLetters = $(this).find('[name="beginLetters"]').val();
+
+    //var parentEl = $(this).parent().parent();
+    //var beginLetters = parentEl.find('[data-task-begin-letters-input]').val();
+    var requestUrl = apiRoot + 'findTasks';
+    
+    $.ajax({
+      url: requestUrl + '/?' + $.param({
+        beginLetters: beginLetters
+      }),
+      method: 'GET',
+      complete: handleDatatableRenderForFoundTasks
+    });
+  }
+
   function toggleEditingState() {
     var parentEl = $(this).parent().parent();
     parentEl.toggleClass('datatable__row--editing');
@@ -117,9 +142,11 @@ $(document).ready(function() {
   }
 
   $('[data-task-add-form]').on('submit', handleTaskSubmitRequest);
+  $('[data-task-search-form]').on('submit', handleFindTaskRequest);
 
   tasksContainer.on('click','[data-task-edit-button]', toggleEditingState);
   tasksContainer.on('click','[data-task-edit-abort-button]', toggleEditingState);
   tasksContainer.on('click','[data-task-submit-update-button]', handleTaskUpdateRequest);
   tasksContainer.on('click','[data-task-delete-button]', handleTaskDeleteRequest);
+  //foundTasksContainer.on('click','[data-find-task-button]', handleFindTaskRequest);
 });
