@@ -245,5 +245,4 @@ $(document).ready(function() {
   $foundTasksContainer.on('click','[data-task-edit-abort-button]', toggleEditingState);
   $foundTasksContainer.on('click','[data-task-submit-update-button]', handleTaskUpdateRequest);
   $foundTasksContainer.on('click','[data-task-delete-button]', handleTaskDeleteRequest);
-  //foundTasksContainer.on('click','[data-find-task-button]', handleFindTaskRequest);
 });
