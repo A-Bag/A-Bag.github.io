@@ -4,7 +4,7 @@ $(document).ready(function() {
   const trelloApiRoot = 'https://afternoon-wave-41255.herokuapp.com/v1/trello/';
   const datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   const $tasksContainer = $('[data-tasks-container]');
-  const foundTasksContainer = $('[data-found-tasks-container]');
+  const $foundTasksContainer = $('[data-found-tasks-container]');
 
   var availableBoards = {};
   var availableTasks = {};
@@ -63,10 +63,17 @@ $(document).ready(function() {
     });
   }
 
-  function handleDatatableRenderForFoundTasks(data) {
-    foundTasksContainer.empty();
-    data.forEach(function(task) {
-      createElement(task).appendTo(foundTasksContainer);
+  function handleDatatableRenderForFoundTasks(taskData, boards) {
+    $foundTasksContainer.empty();
+    taskData.forEach(function(task) {
+      var $datatableRowEl = createElement(task);
+      var $availableBoardsOptionElements = prepareBoardOrListSelectOptions(boards);
+
+      $datatableRowEl.find('[data-board-name-select]')
+        .append($availableBoardsOptionElements);
+
+      $datatableRowEl
+        .appendTo($foundTasksContainer);
     });
   }
 
@@ -165,7 +172,10 @@ $(document).ready(function() {
           beginLetters: beginLetters
       }),
       method: 'GET',
-      success: handleDatatableRenderForFoundTasks
+      success: function(tasks) {
+        getAllAvailableBoards(handleDatatableRenderForFoundTasks, tasks);
+      }
+      //handleDatatableRenderForFoundTasks
     });
   }
 
@@ -228,5 +238,12 @@ $(document).ready(function() {
   $tasksContainer.on('click','[data-task-edit-abort-button]', toggleEditingState);
   $tasksContainer.on('click','[data-task-submit-update-button]', handleTaskUpdateRequest);
   $tasksContainer.on('click','[data-task-delete-button]', handleTaskDeleteRequest);
+
+  $foundTasksContainer.on('change','[data-board-name-select]', handleBoardNameSelect);
+  $foundTasksContainer.on('click','[data-trello-card-creation-trigger]', handleCardCreationRequest);
+  $foundTasksContainer.on('click','[data-task-edit-button]', toggleEditingState);
+  $foundTasksContainer.on('click','[data-task-edit-abort-button]', toggleEditingState);
+  $foundTasksContainer.on('click','[data-task-submit-update-button]', handleTaskUpdateRequest);
+  $foundTasksContainer.on('click','[data-task-delete-button]', handleTaskDeleteRequest);
   //foundTasksContainer.on('click','[data-find-task-button]', handleFindTaskRequest);
 });
