@@ -88,7 +88,7 @@ $(document).ready(function() {
   }
 
   function handleTaskUpdateRequest() {
-    var parentEl = $(this).parent().parent();
+    var parentEl = $(this).parents('[data-task-id]');
     var taskId = parentEl.attr('data-task-id');
     var taskTitle = parentEl.find('[data-task-name-input]').val();
     var taskContent = parentEl.find('[data-task-content-input]').val();
@@ -114,7 +114,7 @@ $(document).ready(function() {
   }
 
   function handleTaskDeleteRequest() {
-    var parentEl = $(this).parent().parent();
+    var parentEl = $(this).parents('[data-task-id]');
     var taskId = parentEl.attr('data-task-id');
     var requestUrl = apiRoot + 'deleteTask';
 
@@ -170,7 +170,7 @@ $(document).ready(function() {
   }
 
   function toggleEditingState() {
-    var parentEl = $(this).parent().parent();
+    var parentEl = $(this).parents('[data-task-id]');
     parentEl.toggleClass('datatable__row--editing');
 
     var taskTitle = parentEl.find('[data-task-name-paragraph]').text();
