@@ -50,6 +50,10 @@ body {
   font-size: 30px;
   font-weight: 400; }
 
+#api_link {
+  display:block;
+  text-align:center; } 
+
 .datatable__row {
   display: flex;
   flex-flow: row nowrap;

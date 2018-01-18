@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
-  const apiRoot = 'https://afternoon-wave-41255.herokuapp.com/v1/task/';
-  const trelloApiRoot = 'https://afternoon-wave-41255.herokuapp.com/v1/trello/';
+  //const apiRoot = 'http://localhost:8080/v1/task/';
+  //const trelloApiRoot = 'http://localhost:8080/v1/trello/';
+  const apiRoot = 'https://afternoon-wave-41255.herokuapp.com/v1/task/'
+  const trelloApiRoot = 'https://afternoon-wave-41255.herokuapp.com/v1/trello/'
   const datatableRowTemplate = $('[data-datatable-row-template]').children()[0];
   const $tasksContainer = $('[data-tasks-container]');
   const $foundTasksContainer = $('[data-found-tasks-container]');
